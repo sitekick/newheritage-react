@@ -1,0 +1,85 @@
+#selector{
+	background: #FFF;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 100;
+	overflow-y: scroll;
+	overflow-x: hidden;
+		
+	> .wrapper {
+		margin: 0 10px;
+		position: absolute;
+	
+	@include screen-small{
+		margin: 10px 0;
+		display: table;
+	}
+	}
+	
+	canvas{
+		display: block;
+	}
+		
+	.option{
+		position: relative;
+		cursor: pointer;
+		margin-bottom: 10px;
+		
+		.canvas-color{
+			position: absolute;
+			opacity: .25;
+			transition-property: opacity;
+			transition-duration: .75s;
+		}
+		
+		.canvas-bw {
+			//grayscale image
+		}
+	
+	@keyframes preloadIcon{
+		from {background-position: 50% 1000%;}
+		to {background-position: 50% 50%;}
+		}
+	
+	&.preloader {
+		background-image: url(../img/icon/rolling.svg);
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		animation-name: preloadIcon;
+		animation-duration: 500ms;
+		animation-iteration-count: 1;
+		
+/*
+	@include ua( sf5-1 ie9 ie10 ie11 edge12 edge13 edge14){
+		background-image: url(../img/icon/rolling.gif);
+		background-size: 40px 40px;
+	}
+*/
+	}
+	
+	
+	&:hover,
+	&:focus {
+		
+		.canvas-color{
+			opacity: 1;
+		} 
+	}	
+	
+	@include screen-small{
+		margin-bottom: 0;
+		padding-right: 10px;
+		display: table-cell;
+	}
+	}
+	
+
+@include screen-small{
+	position: relative;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	margin-bottom: 1em;
+}
+}
+	

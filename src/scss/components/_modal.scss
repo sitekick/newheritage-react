@@ -1,0 +1,167 @@
+#modal {
+	position: absolute;
+	z-index: 1000;
+	background: $white;
+	
+	> .wrapper {
+		position: relative;
+	}
+	
+	.info {
+		font-weight: 400;
+		line-height: 1.4em;
+		position: absolute;
+		background-color: $white;
+		background-color: rgba(255,255,255, .9);
+		color: $grey;
+		padding: 0;
+		width: 40%;
+		height: auto;
+		vertical-align: bottom;
+	
+		h2,
+		h3,
+		p {
+			margin: 10px;
+			margin-top: 1rem;
+			margin-left: 1rem;
+			margin-right: 1rem;
+			margin-bottom: 1rem;
+		}
+		
+		h2{
+			font-family: $montserrat;
+			font-weight: 400;
+			margin-bottom: .25em;
+		}
+		
+		h3{
+			margin-top: 0;
+			color: $orange;
+			font-weight: 400;
+		}
+		
+	
+	@include screen-medium{
+		width: 100%;
+	}
+	
+	@include screen-small{
+		position: relative;
+		top: auto;
+		left: auto;
+		right: auto;
+		background-color: $white;
+		color: $grey;
+		width: 100%;
+		height: auto;
+		text-shadow: none;
+	}
+	}
+	
+	.controls {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		height: 32px;
+		position: absolute; right: -8px; top: -8px;z-index: 20;
+		
+		.icon {
+			width: 32px;
+			height: 100%;
+			border-radius: 100%;
+			border: 3px solid $white;
+			display: block;
+			background-color: $grey;
+			background-image: url(../img/icon/32x32.svg);
+			background-repeat: no-repeat;
+			background-position: -32px -32px;
+			background-size: 64px 96px;
+			cursor: pointer;
+			transition: background-color 1s;
+			
+		&:hover {
+			background-color: $black;
+		}
+		@include ua( sf5-1 ie9 ie10 ){
+			background-image: url(../img/icon/32x32.png);
+		}
+		@include screen-small{
+			border-width: 2px;
+		}
+		}
+	
+	&:focus{
+		
+		.icon{
+			background-color: $black;
+		}	
+	}	
+	}
+
+&.mobile{
+border-width: 2px;	
+	
+	.info{
+	
+	&.quadrant-1,
+	&.quadrant-2,
+	&.quadrant-3,
+	&.quadrant-4 {
+		left: auto;
+		top: auto;
+		right: auto;
+		bottom: auto; 
+	}
+	}	
+}
+
+&.desktop{
+	
+	.info {
+	
+	&.quadrant-1{
+		left: 0; 
+		top: 0; 
+	@include screen-medium{
+		top: auto;
+		bottom: 0;
+	}
+
+	}
+	&.quadrant-2{
+		right: 0; 
+		top: 0; 
+	@include screen-medium{
+		top: auto;
+		right: auto;
+		bottom: 0;
+		left: 0;
+	}
+	}
+	&.quadrant-3{
+		left: 0; 
+		bottom: 0; 
+	}
+	&.quadrant-4{
+		right: 0;
+		bottom: 0; 
+	@include screen-medium{
+		right: auto;
+		bottom: 0;
+		left: 0;
+	}
+	}		
+	}
+	
+}		
+}// #modal
+
+#backcanvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: .6;
+}
+
+		

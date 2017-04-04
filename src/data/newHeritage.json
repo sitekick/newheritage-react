@@ -1,0 +1,103 @@
+{
+	"people" : [{
+			"name": "Mary Waterson",
+			"title": "Lead Designer",
+			"summary": "Mary joined Bill as lead designer on the Maple Leaf job straight out of UT as a promising architectural historian. She is now nationally known for her ability to research and replicate the details of virtually any historical building or structure.",
+			"image": "src/img/people/waterson/1100x733.jpg",
+			"text" : {	
+				"quadrant" : 1,
+				"color" : "dark"
+				}
+			} , {
+			"name": "Mac Williams",
+			"title": "Liason",
+			"summary": "Mac brings extenstive experience, from his time with First Title, being the liaison between the division, local governments and agencies, and our financial team. He will be instrumental to ensuring the New Heritage has the full support of both our customers and our financial partners.",
+			"image": "src/img/people/williams/1100x733.jpg",
+			"text" : {
+				"quadrant" : 4,
+				"color" : "light"
+				}
+			} , {
+			"name": "Bill Clarkson",
+			"title": "Project Manager",
+			"summary": "Bill came to First Title more than two decades ago and has served as one of our most trusted project managers. Bill took on the challenging restoration of the famous Maple Leaf Hotel downtown, and has overseen a host of successful projects since completion of that award-winning and highly appreciated project.",
+			"image": "src/img/people/clarkson/900x598.jpg",
+			"text" : {
+				"quadrant" : 4,
+				"color" : "light"
+				}
+			} , {
+			"name": "Melinda Scott",
+			"title": "Project Manager",
+			"summary": "Melinda will lead the team that is focused on creating new villages and town centers that create an air of historic reality updated for today’s market. She has been involved in and managed several major projects, including the creation of Disney’s Celebration master-planned community near Disneyworld.",
+			"image": "src/img/people/scott/1174x781.jpg",
+			"text" : {
+				"quadrant" : 2,
+				"color" : "light"
+				}
+			} ,  {
+			"name": "Jim O’Brien",
+			"title": "Historical Reference",
+			"summary": "With a career of working with historic organizations and overseeing major restoration efforts for nonprofits, Jim will work with our sales team to identify and develop other significant projects nationally and around the globe. Jim most recently was employed by the city of Fort Worth while managing the magnificent work being done in Near Southside.",
+			"image": "src/img/people/obrien/1000x667.jpg",
+			"text" : {	
+				"quadrant" : 1,
+				"color" : "dark"
+				}
+			}],
+	"projects" : [{
+			"name": "Servetus W. Ogan House",
+			"title": "Wynne, Arkansas",
+			"summary": "",
+			"image": "src/img/buildings/4/1024x678.jpg",
+			"text" : {
+				"quadrant" : 3,
+				"color" : "light"
+				}
+			} , {
+			"name": "Old Exchange and Provost Dungeon",
+			"title": "Charleston, South Carolina",
+			"summary": "",
+			"image": "src/img/buildings/1/1000x699.jpg",
+			"text" : {	
+				"quadrant" : 1,
+				"color" : "light"
+				}
+			} , {
+			"name": "Charles A. Krause House",
+			"title": "Milwaukee, Wisconsin",
+			"summary": "",
+			"image": "src/img/buildings/5/1000x720.jpg",
+			"text" : {	
+				"quadrant" : 4,
+				"color" : "light"
+				}
+			} ,{
+			"name": "The Ferguson Mansion",
+			"title": "Louisville, KY",
+			"summary": "",
+			"image": "src/img/buildings/2/1024x768.jpg",
+			"text" : {	
+				"quadrant" : 4,
+				"color" : "light"
+				}
+			} , {
+			"name": "Old Sears Building on Ponce",
+			"title": "Atlanta, GA",
+			"summary": "",
+			"image": "src/img/buildings/6/1024x714.jpg",
+			"text" : {	
+				"quadrant" : 1,
+				"color" : "light"
+				}
+			} , {
+			"name": "Warrnambool Post Office",
+			"title": "Warrnambool, AUS",
+			"summary": "",
+			"image": "src/img/buildings/3/1024x768.jpg",
+			"text" : {	
+				"quadrant" : 4,
+				"color" : "dark"
+				}
+			}]
+}

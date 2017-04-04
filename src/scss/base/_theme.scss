@@ -1,0 +1,170 @@
+html{
+	height: 100%;
+}
+
+body {
+	position: relative;
+	background: $grey;
+	color: $white;
+	font-family: $raleway;
+	font-weight: 400;
+	line-height: 1.65em;
+	transition: background-color .25s;
+	overflow: hidden;
+	height: 100%;
+
+&.modal {
+	background: $orange;
+}
+@include screen-small{
+	overflow-y: scroll;
+	height: auto;
+}
+}
+
+/* =========== FOCUS ============= */
+
+body{
+	
+	a:focus,
+	*[tabindex="0"]:focus,
+	*[tabindex="-1"]:focus{
+		outline-width: 0;
+	}
+
+&.tabstyles{
+
+	a:focus,
+	*[tabindex="0"]:focus,
+	*[tabindex="-1"]:focus{
+		outline-width: thick;
+	}
+}
+}
+
+/* =========== IMAGES ============= */
+
+img {
+	
+	&.autosize {
+		max-width: 100%;
+		height: auto;
+	}
+	
+	.logo &{
+		margin-top: .25em;	
+		margin-bottom: .5em;	
+	
+	@include screen-small{
+		margin:0 2em;
+	}
+	
+	}
+}
+
+/* =========== ELEMENTS ============= */
+
+
+footer {
+	
+	p{
+		margin: 0;
+	}
+}
+
+
+blockquote{
+	border-left: 5px solid white;
+	padding-left: 3em;
+	font-family: $montserrat;
+	margin: 2em 0 2em 2em;
+}
+/* =========== HEADERS ============= */
+
+h1 {
+	margin: 0 0 1em 0;
+	font-family: $montserrat;
+	font-weight: 400;
+}
+
+
+/* =========== FORM ============= */
+form {
+	font-family: $raleway;
+	font-size: 1em;
+}
+
+label {
+	display: inline-block;
+	vertical-align: top;
+	width: 150px;
+	font-weight: 600;
+	text-indent: .5em;
+	
+&[for="phone"]{
+// 	border: 1px solid red;
+}
+@include screen-small{
+	display: block;
+	width: auto;
+	text-indent: 0;
+}
+}
+
+input {
+	font-size: inherit;
+	font-family: inherit;
+	color: $grey;
+
+&:focus{
+	background: $orange;
+	color: $white;
+}
+
+&[type="submit"]{
+	padding: .25em 1em;
+	cursor: pointer;
+	background: $white;
+	border: 0;
+
+&:hover{
+	background: $orange;
+	color: $white;
+}
+}
+
+
+
+&[type="text"],
+&[type="tel"],
+&[type="email"]{
+	width: 250px;
+	padding: .25em;
+
+@include screen-small{
+	width: 95%;
+	padding: .25em 0;
+	text-indent: .5em;
+}
+
+}
+
+}
+
+textarea{
+	color: $grey;
+	font-size: inherit;
+	font-family: inherit;
+	width: 250px;
+	padding: .25em;
+
+&:focus{
+	background: $orange;
+	color: $white;
+}
+
+
+@include screen-small{
+	width:95%;
+}
+}
