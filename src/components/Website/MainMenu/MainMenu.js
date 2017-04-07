@@ -5,7 +5,7 @@ const MainMenu = props => {
 	
 	return (
 		<nav>
-			<div className="wrapper" style={{display : props.modalState ? 'none' : 'block'}}>
+			<div className="wrapper">
 				<ul id="nav" tabIndex="0" onClick={props.mainMenuOnClick}>
 					<li><NavLink id="projects" to="/" tabIndex="-1">Structures</NavLink></li>
 					<li><NavLink id="people" to="people" tabIndex="-1">People</NavLink></li>

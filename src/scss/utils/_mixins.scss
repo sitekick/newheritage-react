@@ -33,3 +33,25 @@
          }
     }
 }
+
+@mixin preloader(){
+	
+	@keyframes preloadIcon{
+		from {background-position: 50% 1000%;}
+		to {background-position: 50% 50%;}
+	}
+	
+	background-image: url(../img/icon/rolling.svg);
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	animation-name: preloadIcon;
+	animation-duration: 500ms;
+	animation-iteration-count: 1;
+		
+	@include ua( sf5-1 ie9 ie10 ie11 edge12 edge13 edge14){
+		background-image: url(../img/icon/rolling.gif);
+		background-size: 40px 40px;
+	}
+	
+
+}

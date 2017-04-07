@@ -11,6 +11,8 @@ import DragScroll from '../components/ui/DragScroll';
 import { Link } from 'react-router';
 import update from 'immutability-helper'
 
+var classNames = require('classnames');
+
 export default class Website extends Component {
 	
 	constructor(props) {
@@ -80,8 +82,10 @@ export default class Website extends Component {
 						top : this.refs.header.clientHeight,
 						left : this.refs.main.refs.mainWrapper.offsetLeft
 					}
+					var hasScrollbar = window.innerWidth > document.documentElement.clientWidth
+					
 					let dims = {
-						width : window.innerWidth - (pos.left * 2),
+						width : ((hasScrollbar) ? document.documentElement.clientWidth : window.innerWidth) - (pos.left * 2),
 						height : window.innerHeight - pos.top
 					}	
 					
@@ -124,9 +128,16 @@ export default class Website extends Component {
 		}
 	}
 	
+	/*
+componentDidUpdate() {
+		console.log('modal',this.state.modal.state)
+	}
+*/
+	
 	componentWillMount() {
 		this.helpers.initResizeQuery()
 	}
+	
 	
 	render() {
 		
@@ -143,39 +154,48 @@ export default class Website extends Component {
 			}
 		}
 		
+		let bodyClass = classNames(
+			{mobile : this.state.viewport === 'mobile'},
+			{desktop : this.state.viewport === 'desktop'}
+		)
+		
+		let contentClass = classNames(
+			{modal : this.state.modal.state === true}
+		)
+		
 		return (
-			<BodyClass sniffUA={true} >
+			<BodyClass sniffUA={true} addClasses={bodyClass} >
 			<div className="wrapper" >
 				{this.state.modal.state && 
 					<div style={style.modal.wrapper}>
 					{this.state.viewport === 'desktop' &&
 						<BackgroundCanvas srcImage={this.state.modal.data.data.image} canvasElementRenderCallback={this.methods.BackgroundCanvas.canvasElementRenderCallback} />
 					}
-					
 					<Modal modalData={this.state.modal.data} displayMode={this.state.viewport} closeModal={this.methods.Modal.closeModal} />
 					</div>
 				}
-				
-				<div id="content" className={ this.state.modal.state === true ? "modal" : ''}>
-					<div className="wrapper" >
+					<DragScroll wrapperClass="content" scrollAxis="y">
+					<div id="content" className={contentClass}>
+						<div className="scroll-wrapper">
 						<header ref="header">
 							<div className="wrapper">
 								<div className="logo">
-									<Link to="/" onClick={this.handlers.Link.onClick} >
+									<Link title="New Heritage Realty LLC" to="/" onClick={this.handlers.Link.onClick} >
 										<img src="src/img/logo/white.svg" className="autosize svg" alt="new heritage logo" />
 									</Link>
 								</div>
 							</div>
 						</header>
-						<MainMenu mainMenuOnClick={this.handlers.MainMenu.mainMenuOnClick} modalState={this.state.modal.state} />
-						<Main ref="main" children={this.props.children} displayMode={this.state.viewport} modalState={this.state.modal.state} componentData={this.state.appData} currentPage={this.state.currentPage} selectorSelectorItemLoadModal={this.methods.components.loadModal} selectorSelectorDisableModal={this.methods.components.closeModal}
-						/>
+						<MainMenu mainMenuOnClick={this.handlers.MainMenu.mainMenuOnClick} />
+						<Main ref="main" displayMode={this.state.viewport} modalState={this.state.modal.state} componentData={this.state.appData} currentPage={this.state.currentPage} selectorSelectorItemLoadModal={this.methods.components.loadModal} selectorSelectorDisableModal={this.methods.components.closeModal}>
+						{this.props.children}
+						</Main>
 						<Footer />
-					</div>				
-				</div>
+						</div>		
+					</div>
+					</DragScroll>
 				<Sidebar displayMode={this.state.viewport} componentData={this.state.appData} modalState={this.state.modal.state} currentPage={this.state.currentPage} selectorSelectorItemLoadModal={this.methods.components.loadModal} selectorSelectorDisableModal={this.methods.components.closeModal}
 				/>
-				
 			</div>
 			</BodyClass>
 		)

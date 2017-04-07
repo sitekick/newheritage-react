@@ -1,0 +1,113 @@
+#content {
+//  width: 70%;	float: left; //.drag-scroller parent set to 70%; float
+	height: inherit;
+ 	overflow-y: scroll;
+ 	overflow-x: hidden;
+	direction: rtl;
+
+		.scroll-wrapper {
+			position: relative;
+			direction: ltr;
+			z-index:10;
+		}
+		
+&.modal {
+	
+	nav,
+	footer {
+		display: none;
+	}
+}
+
+@include screen-small{
+	//width: 100%;
+	//float: none;
+	overflow-y: auto;
+	direction: ltr;
+}
+}
+
+#sidebar {
+	width: 30%;
+	height: inherit;
+	position: relative;
+	float: right;
+	
+@include screen-medium{
+	//bugfix for downsizing window just prior to mobile format activation
+	overflow: hidden;
+}
+
+@include screen-small{
+	display: none;
+}
+}
+
+
+header,
+nav,
+main, 
+footer {
+	
+	> .wrapper{
+		margin: 0 6em;
+			 
+		@include screen-medium{
+			margin: 0 1em;
+		}
+	}			
+}	
+
+header {
+	margin-bottom: 0;
+	
+	> .wrapper{
+		
+		.logo{
+		
+		@include screen-full{
+			margin-right: 20em;
+		}
+		@include screen-large{
+			margin-right: 10em;
+		}
+		@include screen-small{
+			margin-right:0;
+		}
+		}
+	}
+
+@include screen-small{
+	margin-bottom: 0;
+}
+}
+
+nav {
+	margin-bottom: 2em;
+
+
+}
+
+main {
+	
+.modal & {
+	
+	.content {
+		visibility: hidden;
+	}
+}	
+	
+@include screen-small{
+	position: relative;
+}
+}
+
+footer {
+	margin-top: 4em;
+	margin-bottom: 2em;
+	
+	.wrapper{
+		color: $white;
+		padding: .25em;
+	}
+}

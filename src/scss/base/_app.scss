@@ -5,13 +5,29 @@ html{
 body {
 	margin: 0;
 	padding: 0;
+	position: relative;
+	overflow: hidden;
+	height: 100%;
+
+@include screen-small{
+	//overflow-y: scroll;
+// 	height: auto;
+}
 }
 
 #app {
-	height: inherit;
-	
+height: inherit;	
+
 	> .wrapper {
 		height: inherit;
-		overflow: hidden;
+/*
+		overflow-y: auto;
+		overflow-x: hidden;
+*/
+		
+	@include screen-small{
+// 		overflow-y: hidden;
+	}		
 	}
 }
+

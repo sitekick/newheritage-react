@@ -1,6 +1,9 @@
 import React, {PropTypes, Component} from 'react';
 import CanvasElement from '../CanvasElement/CanvasElement';
 import canvasHelpers from '../CanvasElement/canvasHelpers';
+import update from 'immutability-helper'
+
+var classNames = require('classnames');
 
 export default class Modal extends Component {
 	
@@ -9,6 +12,7 @@ export default class Modal extends Component {
 		
 		this.state = {
 			canvas : {
+				preloader : true,
 				attributes : {
 					width : 0,
 					height : 0,
@@ -25,7 +29,6 @@ export default class Modal extends Component {
 							let sizedWidth = canvasElement.width = props.canvasAttributes.width
 							let sizedHeight = canvasElement.height = props.canvasAttributes.height
 							
-							console.log()
 							img.onload = () => {
 								if(this.props.displayMode === 'mobile') {
 									context.drawImage(img,0,0,sizedWidth, sizedHeight)
@@ -33,6 +36,9 @@ export default class Modal extends Component {
 									canvasHelpers.drawImageProp(context,img,-props.canvasAttributes.left,-props.canvasAttributes.top,window.innerWidth,window.innerHeight);	
 								}
 								
+								//change preloader state
+								let delta = update(this.state, { canvas : { preloader : { $set : false } } })
+								this.setState(delta)
 							}
 							
 							img.src = props.canvasAttributes.src.url;
@@ -42,32 +48,57 @@ export default class Modal extends Component {
 				}
 			}
 		}
-	
+		this.mount = {
+			stateDefaults : () => {
+				
+				const canvasAttributes = this.helpers.getAttributes.canvas()
+				
+				let delta = update(this.state, {
+					canvas : {
+						attributes : {
+							width : { $set : canvasAttributes.width },
+							height : { $set : canvasAttributes.height },
+							left : { $set : canvasAttributes.left },
+							top : { $set : canvasAttributes.top }
+						}
+					}
+				})
+				
+				this.setState(delta);
+			}
+		}
+		this.helpers = {
+			getAttributes : {
+					canvas : () => {
+						if(props.displayMode === 'mobile'){
+						
+						const dimensions = canvasHelpers.readFilename(props.modalData.data.image)
+						
+						return {
+							width : props.modalData.dimensions.width,
+							height : Math.floor(props.modalData.dimensions.width * (dimensions.height / dimensions.width )),
+							left : 0, 
+							top : 0 
+						}
+					
+					} else {
+						
+						return {
+							width : props.modalData.dimensions.width,
+							height : window.innerHeight - props.modalData.position.top,
+							left :	props.modalData.position.left, 
+							top : props.modalData.position.top
+						}
+					
+					}
+				}
+			}
+		}
 		
 	}
 
-	assignCanvasDimensions(modalData, mode) {
-		
-		if(mode === 'mobile'){
-			let width = window.innerWidth - (modalData.position.left * 2);
-			let dimensions = canvasHelpers.readFilename(modalData.data.image)
-			this.state.canvas.attributes.width = width;
-			this.state.canvas.attributes.height = Math.floor(width * (dimensions.height / dimensions.width ));
-			this.state.canvas.attributes.left = 0; 
-			this.state.canvas.attributes.top = 0 ;
-		} else {
-			this.state.canvas.attributes.width = window.innerWidth - (modalData.position.left * 2);
-			this.state.canvas.attributes.height = window.innerHeight - modalData.position.top;
-			this.state.canvas.attributes.left =	modalData.position.left; 
-			this.state.canvas.attributes.top = modalData.position.top;
-		}
-		
-		this.setState(this.state);
-			
-	}
-	
 	componentWillMount(){
-		this.assignCanvasDimensions(this.props.modalData, this.props.displayMode)
+		this.mount.stateDefaults();
 	}
 	
 	render() {
@@ -92,9 +123,15 @@ export default class Modal extends Component {
 			
 		}
 		
+		const modalClass = classNames(
+			{ mobile :  this.props.displayMode == 'mobile'},
+			{ desktop :  this.props.displayMode == 'desktop'},
+			{ preloader :  this.state.canvas.preloader == true}
+		)
+			
 		return (
 			
-			<div id="modal" className={this.props.displayMode} tabIndex="0" style={style.modal.applyStyle(this.props.displayMode)}>
+			<div id="modal" className={modalClass} tabIndex="0" style={style.modal.applyStyle(this.props.displayMode)}>
 				<div className="wrapper">
 					
 					<CanvasElement canvasId="vignette" canvasRef="vignette" canvasAttributes={this.state.canvas.attributes}  />

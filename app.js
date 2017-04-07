@@ -11,7 +11,6 @@ axios.get('./src/data/newHeritage.json')
 	render(<Routes appData={response.data} />, document.getElementById('app'))
 })
 
-
 /*
 .catch( error => {
 	render(<p>Could not load data</p>, document.getElementById('app'))

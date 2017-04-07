@@ -1,25 +1,10 @@
-html{
-	height: 100%;
-}
-
 body {
-	position: relative;
 	background: $grey;
 	color: $white;
 	font-family: $raleway;
 	font-weight: 400;
 	line-height: 1.65em;
 	transition: background-color .25s;
-	overflow: hidden;
-	height: 100%;
-
-&.modal {
-	background: $orange;
-}
-@include screen-small{
-	overflow-y: scroll;
-	height: auto;
-}
 }
 
 /* =========== FOCUS ============= */
@@ -41,6 +26,15 @@ body{
 	}
 }
 }
+/* =========== ANCHOR============= */
+
+a {
+	img {
+		border: 0;
+	}
+}
+
+
 
 /* =========== IMAGES ============= */
 

@@ -5,20 +5,17 @@ export default class Sidebar extends Component {
 	
 	constructor(props) {
 		super(props)
-	
+		
 		this.state = {width : 0}
 	}
 	
 	componentDidMount(){
-		this.state.width = this.refs.sidebar.clientWidth;
-		this.setState(this.state);
+		this.setState({ width : this.refs.sidebar.clientWidth });
 	}
 	
 	componentWillReceiveProps(){
-		if(this.state.width !== this.refs.sidebar.clientWidth) {
-			this.state.width = this.refs.sidebar.clientWidth;
-			this.setState(this.state);
-		}
+		if(this.state.width !== this.refs.sidebar.clientWidth) 
+			this.setState({ width : this.refs.sidebar.clientWidth });
 	}
 	
 	render(){

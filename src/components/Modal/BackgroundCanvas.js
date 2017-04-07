@@ -26,10 +26,10 @@ export default class BackgroundCanvas extends Component {
 							
 							img.onload = () => {
 								canvasHelpers.drawImageProp(context,img,0,0,sizedWidth,sizedHeight);
-							 		canvasHelpers.tintImage(context,sizedWidth,sizedHeight,239,65,54);
-							 }
+							 	canvasHelpers.tintImage(context,sizedWidth,sizedHeight,239,65,54);
+							}
  		
-							 img.src = props.canvasAttributes.src.url;
+							img.src = props.canvasAttributes.src.url;
 						}
 					}
 				}

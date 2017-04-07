@@ -9,61 +9,57 @@ export default class Selector extends Component {
 		super(props)
 		
 		this.state = {
-			dims : this.computeDimensions(props)
+			width : 0,
+			height : 0
 		}
 		
-		this.loadModal = this.loadModal.bind(this);
-		this.handleResize = this.handleResize.bind(this);
-		
-		
+		this.mount = {
+			stateDefaults: (properties) => {
+				this.setState({ 
+					width : properties.selectorWidth,
+					height : properties.displayMode === 'mobile' ? 185 : window.innerHeight
+				})
+			}
+		}
+		this.handlers = {
+			windowResize: () => {
+			if(props.modalState === true)
+				props.selectorDisableModal()
+			}
+		}
+		this.methods = {
+			Selector : {
+				loadModal: (e,optionIndex) => {
+					const modalData = props.selectorData[optionIndex];
+					this.props.selectorItemLoadModal(modalData);
+				}
+			}
+		}
+	}
+	
+	componentWillMount(){
+		this.mount.stateDefaults(this.props);
 	}
 	
 	componentWillReceiveProps(nextProps){
-		
-		if(this.props.selectorWidth !== nextProps.selectorWidth) {
-			this.state.dims = this.computeDimensions(nextProps);
-			this.setState(this.state)
-		}
+		if(this.props.selectorWidth !== nextProps.selectorWidth) 
+			this.mount.stateDefaults(nextProps);
 	}
 	
 	componentDidMount(){
-		window.addEventListener('resize', this.handleResize);
+		window.addEventListener('resize', this.handlers.windowResize);
 	}
 	
 	componentWillUnmount(){
-		window.removeEventListener('resize', this.handleResize);
-	}
-	
-	handleResize(){
-		if(this.props.modalState === true)
-			this.props.selectorDisableModal()
-	}
-	
-	loadModal(e, optionIndex){
-		let modalData = this.props.selectorData[optionIndex];
-		this.props.selectorItemLoadModal(modalData);
-	}
-	
-	computeDimensions(props){
-		
-		let computedWidth, computedHeight;
-		
-		if(props.displayMode === 'mobile') {
-			computedWidth = window.innerWidth;
-			computedHeight = 185;
-		} else {
-			computedWidth = props.selectorWidth;
-			computedHeight = window.innerHeight;
-		}
-		return {width : computedWidth, height : computedHeight};
+		window.removeEventListener('resize', this.handlers.windowResize);
 	}
 	
 	render() {
 		
 		const style = {
 			selector : {
-				width : this.state.dims.width,
-				height : this.state.dims.height,
+				width : this.state.width,
+				height : this.state.height,
 				visibility: this.props.modalState ? 'hidden' : 'visible'
 			}
 		}
@@ -77,8 +73,8 @@ export default class Selector extends Component {
 						return (
 							<SelectorItem key={'canvas-'+index} itemIndex={index} itemData={option}  
 							displayMode= {that.props.displayMode}
-							selectorDims={this.state.dims}
-							loadModal={this.loadModal}
+							selectorDims={ { width : this.state.width, height : this.state.height} }
+							loadModal={this.methods.Selector.loadModal}
 							/>
 						)
 						})}

@@ -10,54 +10,54 @@ export default class BodyClass extends Component {
 		super(props);
 		
 		this.state = {
-			userAgent : '',
-			bodyClasses : ''
+			bodyClasses : props.addClasses
 		}
 		
 		this.methods = {
 			UAClass : () => {
-				let browserID;
-				
+		
 				switch(true){
 				 
 				 case (bowser.name == 'Microsoft Edge'):
-				 	browserID = `${edge(Math.floor(bowser.version))}`;
+				 	this.methods.addUAClass('edge',Math.floor(bowser.version));
 				 	break;
 				 case (bowser.name == 'Internet Explorer'):
-				 	browserID = `ie${Math.floor(bowser.version)}`;
+				 	this.methods.addUAClass('ie',Math.floor(bowser.version));
 				 	break;
 				 case (bowser.name == 'Safari'):
 				 	const ver = (bowser.version * 1).toString();
-				 	browserID = `sf${ver.replace('.','-')}`;
+				 	this.methods.addUAClass('sf', ver.replace('.','-') );
 				 	break;
 				 case (bowser.name == 'Chrome'):
-				 	browserID = `ch${Math.floor(bowser.version)}`;
+				 	this.methods.addUAClass('ch',Math.floor(bowser.version));
 				 	break;
 				 case (bowser.name == 'Opera'):
-				 	browserID = `op${Math.floor(bowser.version)}`;
+				 	this.methods.addUAClass('op',Math.floor(bowser.version));
 				 	break;
 				 case (bowser.name == 'Firefox'):
-				 	browserID = `ff${Math.floor(bowser.version)}`;
+				 	this.methods.addUAClass('ff',Math.floor(bowser.version));
 				 	break; 
-				 default :
-				 	browserID = '';
 			    }
-			    return browserID;
 			},
-			addClasses: () => {
+			addUAClass: (slug,ver) => {
 		
-				let classesArray = [];
+				if(slug !== undefined && ver !== undefined){
+					this.helpers.addClass(slug+ver);
 				
-				if ( this.state.userAgent ) 
-					classesArray.push(this.state.userAgent)
-				
-				if ( this.state.bodyClasses ) {
-					classesArray = this.state.bodyClasses.split(' ').concat(classesArray)
+					this.methods.bodyClassProps();
 				}
+			},
+			bodyClassProps: () => {
+		
+				if(!this.state.bodyClasses)
+					return
 				
-				classesArray.map((bodyClass) => {
+				let array = this.state.bodyClasses.split(' ');
+				
+				array.map((bodyClass) => {
 					this.helpers.addClass(bodyClass);
 				})
+		
 			}
 		}
 		this.helpers = {
@@ -80,45 +80,41 @@ export default class BodyClass extends Component {
 					var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
 					this.helpers.el.className = this.helpers.el.className.replace(reg, ' ')
 				}
-			},
-			resetClass : () =>  {
-				this.helpers.el.className = '';
 			}
 		}
 	}
 	
 	componentWillReceiveProps(nextProps){
+		console.log('next', nextProps.addClasses)
 		
 		if(nextProps.addClasses != this.state.bodyClasses){
 			this.setState({
 				bodyClasses : nextProps.addClasses
 			})
-			//remove current classes
-			this.helpers.resetClass();
+			console.log('saved state',this.state.bodyClasses)
 		}
 	}
 	
+	
 	componentWillMount() {
+
+		if(this.props.sniffUA && bowser){
+			this.methods.UAClass();
+		} else {
+			this.methods.bodyClassProps();
+		}
 		
-		this.setState({
-			userAgent : (this.props.sniffUA && bowser) ? this.methods.UAClass() : '',
-			bodyClasses : (this.props.addClasses) ? this.props.addClasses.trim() : '' 
-		})
-	}
-	
-	componentDidUpdate() {
-		this.methods.addClasses()
-	}
-	
-	componentDidMount() {
-		this.methods.addClasses()
 	}
 	
 	componentWillUnmount() {
-		this.helpers.resetClass();
+		
+		document.body.className = '';
+
 	}
 	
 	render(){
+		
 		return this.props.children
+		
 	}
 }

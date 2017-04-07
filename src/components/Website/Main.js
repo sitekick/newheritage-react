@@ -3,10 +3,25 @@ import Selector from '../Selector/Selector';
 
 export default class Main extends Component {
 	
+	
+	constructor(props) {
+		super(props)
+		this.state = {width : 0}
+	}
+	
+	componentDidMount(){
+		this.setState({width : this.refs.main.clientWidth});
+	}
+	
+	componentWillReceiveProps(){
+		if(this.state.width !== this.refs.main.clientWidth) 
+			this.setState({width : this.refs.main.clientWidth})
+	}
+	
 	render() {
 		return (
-			<main>
-				{this.props.currentPage !== 'contact' && this.props.displayMode === 'mobile' &&
+			<main ref="main">
+				{this.props.currentPage !== 'contact' && this.props.displayMode === 'mobile' && this.state.width &&
 					<Selector 
 					displayMode={this.props.displayMode}
 					key={this.props.currentPage} 
@@ -14,10 +29,11 @@ export default class Main extends Component {
 					modalState={this.props.modalState}
 					selectorItemLoadModal={this.props.selectorSelectorItemLoadModal}
 					selectorDisableModal={this.props.selectorSelectorDisableModal}
+					selectorWidth={this.state.width}
 					/>
 				}
 				<div className="wrapper" ref="mainWrapper">
-						{this.props.children}
+					{this.props.children}
 				</div>
 			</main>
 		)

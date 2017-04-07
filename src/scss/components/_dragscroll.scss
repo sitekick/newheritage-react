@@ -1,0 +1,20 @@
+.drag-wrapper {
+	height: inherit;
+	cursor: grab;
+
+
+&.dragging {
+	cursor: grabbing;
+}
+
+&.content {
+	//need to represent box layout for content class
+	width: 70%;
+	float: left;
+@include screen-small{
+	width: 100%;
+	float: none;
+}
+
+}
+}
